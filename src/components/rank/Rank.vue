@@ -1,6 +1,8 @@
 <template>
 
-<div></div>
+<div>
+  rank页面
+</div>
 </template>
 
 <script>
