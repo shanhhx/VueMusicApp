@@ -38,15 +38,15 @@
       }
     },
     mounted () {
-      this.timer = setTimeout(() => {
+      setTimeout(() => {
         this._setSliderWidth()
         this._initDots()
         this._initSlider()
-
         if (this.autoPlay) {
           this._play()
         }
-      }, 200)
+        console.log('slider')
+      }, 300)
 
       window.addEventListener('resize', () => {
         if (!this.slider) {
@@ -70,7 +70,6 @@
     methods: {
       _setSliderWidth (isResize) {
         this.children = this.$refs.sliderGroup.children
-
         let width = 0
         let sliderWidth = this.$refs.slider.clientWidth
         for (let i = 0; i < this.children.length; i++) {
@@ -169,10 +168,11 @@
       height: 8px;
       border-radius: 50%;
       background: #fff;
-      .active{
-        width: 20px;
-        border-radius: 5px;
-      }
+
+    }
+    .active{
+      width: 20px;
+      border-radius: 5px;
     }
   }
 }

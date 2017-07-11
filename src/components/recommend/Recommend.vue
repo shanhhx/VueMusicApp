@@ -1,6 +1,9 @@
 <template>
 <div class="recommend">
-  <div class="recommend-content">
+
+
+    <v-scroll  class="recommend-content">
+      <div>
     <div class="slider-wrapper">
       <slider>
         <div v-for="(item, index) in sliderimg">
@@ -15,25 +18,29 @@
       <ul >
         <li v-for="item in dicList" class="item">
           <div class="icon">
-            <img width="60" height="60" :src="item.imgurl" alt="">
+            <img width="60" height="60" v-lazy="item.imgurl" alt="">
           </div>
           <div class="text">
-            <h2 class="name" v-html="item.creator.name"></h2>
-            <p>{{item.dissname}}</p>
+            <div class="name">{{ item.creator.name}}</div>
+            <div class="msg">{{item.dissname}}</div>
           </div>
         </li>
       </ul>
     </div>
-  </div>
+      </div>
+  </v-scroll>
+
 </div>
 </template>
 
 <script>
   import { getRecommend, getList } from '../../api/recommend'
   import Slider from '../../base/slider'
+  import VScroll from '../../base/scroll'
+
   export default{
     components: {
-      Slider
+      Slider, VScroll
     },
     data () {
       return {
@@ -48,6 +55,7 @@
     methods: {
       _getRecommend () {
         getRecommend().then((res) => {
+          console.log('img')
           if (res.code === 0) {
             this.sliderimg = res.data.slider
           }
@@ -55,9 +63,9 @@
       },
       _getList () {
         getList().then((res) => {
-          console.log(res)
           if (res.code === 0) {
             this.dicList = res.data.list
+            console.log('list')
           }
         })
       }
@@ -96,15 +104,18 @@
         align-items: center;
         padding: 0 20px 20px 20px;
         .text{
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
           flex: 1;
           line-height: 20px;
           overflow: hidden;
           font-size: 14px;
+          color: #fff;
           .name{
-            margin-bottom: 10px
+            margin-bottom: 10px;
+            text-align: left;
+            font-size: 16px;
+          }
+          .msg{
+            text-align: left;
           }
         }
         .icon{
