@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import store from './store'
 import 'babel-polyfill'
 import fastlick from 'fastclick'
 import vueLazyLoad from 'vue-lazyload'
@@ -16,6 +17,7 @@ Vue.use(vueLazyLoad, {
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: { App }
 })

@@ -6,8 +6,32 @@
 </template>
 
 <script>
-export default {
-}
+  import {mapGetters} from 'vuex'
+  import {getSingerDetail} from '../../api/singer'
+
+  export default {
+    computed: {
+      ...mapGetters([
+        'singer'
+      ])
+    },
+    created () {
+      this._getSingerDetail()
+    },
+    methods: {
+      _getSingerDetail () {
+        if (!this.singer.id) {
+          this.$router.push('/singer')
+          return
+        }
+        getSingerDetail(this.singer.id).then(res => {
+          if (res.code === 0) {
+            console.log(res.data.list)
+          }
+        })
+      }
+    }
+  }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

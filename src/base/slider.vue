@@ -46,7 +46,7 @@
           this._play()
         }
         console.log('slider')
-      }, 300)
+      }, 500)
 
       window.addEventListener('resize', () => {
         if (!this.slider) {

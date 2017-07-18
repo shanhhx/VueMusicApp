@@ -8,6 +8,8 @@
 <script>
   import {getSingerList} from 'api/singer'
   import ListView from 'base/listview'
+  import {mapMutations} from 'vuex'
+
   const HOT_SINGER_LEN = 10
   const HOT_NAME = '热门'
 
@@ -25,6 +27,7 @@
         getSingerList().then((res) => {
           if (res.code === 0) {
             this.singerList = this._normalizeSinger(res.data.list)
+            console.log(res.data.list)
           }
         })
       },
@@ -38,8 +41,8 @@
         list.forEach((item, index) => {
           if (index < HOT_SINGER_LEN) {
             map.hot.items.push({
-              id: item.Fsinger_id,
-              name: item.Fother_name,
+              id: item.Fsinger_mid,
+              name: item.Fsinger_name,
               avatar: `http://y.gtimg.cn/music/photo_new/T001R150x150M000${item.Fsinger_mid}.jpg?max_age=2592000`
             })
           }
@@ -51,11 +54,10 @@
             }
           }
           map[key].items.push({
-            id: item.Fsinger_id,
-            name: item.Fother_name,
+            id: item.Fsinger_mid,
+            name: item.Fsinger_name,
             avatar: `http://y.gtimg.cn/music/photo_new/T001R150x150M000${item.Fsinger_mid}.jpg?max_age=2592000`
           })
-          console.log(item.Fsinger_mid)
         })
 //        有序列表
         let ret = []
@@ -77,7 +79,11 @@
         this.$router.push({
           path: `/singer/${singer.id}`
         })
-      }
+        this.setSinger(singer)
+      },
+      ...mapMutations({
+        setSinger: 'SET_SINGER'
+      })
     },
     components: {
       ListView
